@@ -66,7 +66,7 @@ scientific conferences. He is a reviewer for over 20 international journals.
 
 ***Luca Zelioli*** received B.S. degree from the Turku University of
 Applied Sciences (2018) and M.S. degree from the  ̊Abo Akademi (2020).
-He is currently working as Doctoral Candidate in Department of Computing, University of Turku since January 2022 and he is preparing his dissertation.Previously he was working as a Project Researcher in the same department since April 2021. His M.S. thesis topic was “Environmental damage assessment based on satellite imagery using machine learning”. His main research interests include Sensor Fusion, Artificial Intelligence and Software Engineering
+He is currently working as Doctoral Candidate in Department of Computing, University of Turku since January 2022 and he is preparing his dissertation.Previously he was working as a Project Researcher in the same department since April 2021. His M.S. thesis topic was “Environmental damage assessment based on satellite imagery using machine learning”. His main research interests include Sensor Fusion, Artificial Intelligence and Software Engineering.
 
 ---
 
