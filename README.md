@@ -36,6 +36,8 @@ DL-based sensor fusion methods in following applications:
 – Describe our sample DL-based fusion codes for these applications
 
 <h2 style="text-align: center;">Resources</h2>
+All slides for the tutorial and sample of our codes are avaiable in this represitory.
+
 <h2 style="text-align: center;">Tutorial Lecturers</h2>
 
 ---
