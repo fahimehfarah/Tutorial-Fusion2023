@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">Tutorial_Fusion2023</h1>
+<h1 style="text-align: center;">Deep Learning for Multispectral, Multiresolution and Multisensor Data Fusion</h1>
 
 <h2 style="text-align: center;">Overview</h2>
 
