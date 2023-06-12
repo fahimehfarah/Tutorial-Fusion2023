@@ -4,12 +4,23 @@ import os
 from Utilities.configuration import configuration
 
 
-class CNNUtilities():
-    def __init__(self, configuration: dict):
+class CNNUtilities:
+    """
+    WRITE HERE
+    Methods:
+        load_the_image_from_the_dataset_folder(self, path: str, image_shape: tuple) -> (np.ndarray, np.ndarray, np.ndarray)
+    """
+    def __init__(self, configuration: dict, segmentation_index_list: list):
+        """
+        CNN Constructor
+        :param configuration: (dict) configuration dictionary
+        :param segmentation_index_list: (list) segmentation index list
+        """
         self.configuration = configuration
-        pass
+        self.segmentation_index_list = segmentation_index_list
 
-    def load_the_image_from_the_dataset_folder(self, path: str, image_shape: tuple) -> (np.ndarray, np.ndarray, list):
+
+    def load_the_image_from_the_dataset_folder(self, path: str, image_shape: tuple) -> (np.ndarray, np.ndarray, np.ndarray):
         """
         WRITE HERE
         :param path: (str)
@@ -39,6 +50,26 @@ class CNNUtilities():
                 depth_image_list.append(depth_image.astype('uint8'))
                 label_image_list.append(label_image.astype('uint8'))
 
-            return np.array(rgb_image_list), np.array(depth_image_list), label_image_list
+            # create the encoded labels
+            encoded_label = self.__encode_the_labels(label_list=label_image_list)
+
+            return np.array(rgb_image_list), np.array(depth_image_list), encoded_label
         except Exception as ex:
             print(f"[EXCEPTION] Main throws exception {ex}")
+
+    def __encode_the_labels(self, label_list: list):
+        try:
+            encoded_label = list()
+            for label in label_list:
+                # get the shape
+                h, w, c = label.shape
+                label = np.dot(label.reshape(h * w, c)[:, ], [1, 4, 9])
+                for i in range(len(self.segmentation_index_list)):
+                    label[label == self.segmentation_index_list[i]] = i
+                # Do one hot encoding
+                label = (np.arange(len(self.segmentation_index_list)) == label[..., None]) * 1
+                # encode
+                encoded_label.append(label)
+            return np.array(encoded_label)
+        except Exception as ex:
+            print(f"[EXCEPTION] Encode the labels throws exception {ex}")
