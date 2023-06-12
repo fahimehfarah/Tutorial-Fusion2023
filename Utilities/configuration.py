@@ -1,0 +1,4 @@
+
+configuration = {
+    "VERBOSE": False
+}
