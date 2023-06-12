@@ -1,7 +1,8 @@
 <h1 style="text-align: center;">Deep Learning for Multispectral, Multiresolution and Multisensor Data Fusion</h1>
 
 <h2 style="text-align: center;">Fusion2023 tutorial
-June 27th 2022 ((13:00 - 16:30)</h2>
+  
+June 27th 2022 (13:00 - 16:30)</h2>
 
 <h2 style="text-align: center;">Overview</h2>
 
