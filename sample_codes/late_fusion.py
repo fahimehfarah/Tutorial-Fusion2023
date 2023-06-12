@@ -43,9 +43,9 @@ if __name__ == '__main__':
 
     # override epochs
     if args.epochs:
-        epochs = args.epochs
+        configuration["epochs"] = args.epochs
     else:
-        epochs = configuration["epochs"]
+        configuration["epochs"] = 200
 
     # define the var for the final shape
     image_shape = (h, w)

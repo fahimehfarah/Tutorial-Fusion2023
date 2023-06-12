@@ -17,5 +17,18 @@ read -r w
 echo Write number of epochs
 read -r e
 
+echo Select type early or middle or late fusion
+read -r type
 
-python fusion.py -height "${h}" -width "${w}" -epochs "${e}"
+if [ "$type" = "early" ]
+  then
+    echo Start Early fusion
+    python early_fusion.py -height "${h}" -width "${w}" -epochs "${e}"
+elif [ "$type" = "middle" ]
+  then
+    echo Start Middle fusion
+    python middle_fusion.py -height "${h}" -width "${w}" -epochs "${e}"
+else
+    echo Start Late fusion
+    python late_fusion.py -height "${h}" -width "${w}" -epochs "${e}"
+fi
