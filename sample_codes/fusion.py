@@ -3,9 +3,10 @@ import argparse
 import tensorflow as tf
 from Utilities.configuration import configuration, segmentation_index
 from Utilities.utilities import CNNUtilities
+from NNFactory.NNFactoryVGG import NNFactoryWithVGG
 
 if __name__ == '__main__':
-    NOGPU = False
+    NOGPU = True
     if NOGPU:
         os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
     else:
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     # define the var for the final shape
     image_shape = (h, w)
 
-    # first step load the dataset
+    # first step load the datasets
     train_rgb, train_depth, train_labels = utilities.load_the_image_from_the_dataset_folder(path="../Dataset/train",
                                                                                             image_shape=image_shape)
 
@@ -64,4 +65,51 @@ if __name__ == '__main__':
                                                                                                            image_shape=image_shape)
 
     print(f"[VALID] RGB {validation_rgb.shape} NIR {validation_depth.shape} LABEL {validation_labels.shape}")
+
+    # create cnn config
+    cnn_configuration = {
+        'shape_stream_rgb': train_rgb.shape[1:],
+        'kernel_size_stream_rgb': (train_rgb.shape[3], train_rgb.shape[3]),
+        'shape_stream_nir': train_depth.shape[1:],
+        'kernel_size_stream_nir': (train_depth.shape[3], train_depth.shape[3]),
+        'list_of_conv_layers': [128, 256],
+        "dropout": 0.2,
+        'number_of_classes': len(segmentation_index)
+    }
+
+    print(f'[CNN CONFIGURATION] {cnn_configuration}')
+
+    dictionary_of_training = {
+        'input_rgb': train_rgb,
+        'input_nir': train_depth
+    }
+
+    dictionary_of_test = {
+        'input_rgb': test_rgb,
+        'input_nir': test_depth
+    }
+
+    dictionary_of_validation = {
+        'input_rgb': validation_rgb,
+        'input_nir': validation_depth
+    }
+
+    # instance of the model
+    cnn_handler = NNFactoryWithVGG(**cnn_configuration)
+
+    # create a late fusion
+    cnn_handler.late_fusion()
+
+    # fit the model
+    cnn_handler.fit_the_model(x_train=dictionary_of_training,
+                              y_train=train_labels,
+                              x_validation=dictionary_of_validation,
+                              y_validation=validation_labels,
+                              epochs=configuration["epochs"])
+    # evaluate the model
+    cnn_handler.evaluate_the_model(x_test=dictionary_of_test,
+                                   y_test=test_labels)
+
+    # predict
+    final_predictions = cnn_handler.make_predictions(x_test=dictionary_of_test)
 
