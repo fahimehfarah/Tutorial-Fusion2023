@@ -7,8 +7,11 @@ from Utilities.configuration import configuration
 class CNNUtilities:
     """
     WRITE HERE
-    Methods:
+    Public Methods:
         load_the_image_from_the_dataset_folder(self, path: str, image_shape: tuple) -> (np.ndarray, np.ndarray, np.ndarray)
+
+    Private Methods:
+        __encode_the_labels(self, label_list: list) -> np.ndarray
     """
     def __init__(self, configuration: dict, segmentation_index_list: list):
         """
@@ -18,7 +21,6 @@ class CNNUtilities:
         """
         self.configuration = configuration
         self.segmentation_index_list = segmentation_index_list
-
 
     def load_the_image_from_the_dataset_folder(self, path: str, image_shape: tuple) -> (np.ndarray, np.ndarray, np.ndarray):
         """
@@ -57,7 +59,13 @@ class CNNUtilities:
         except Exception as ex:
             print(f"[EXCEPTION] Main throws exception {ex}")
 
-    def __encode_the_labels(self, label_list: list):
+    def __encode_the_labels(self, label_list: list) -> np.ndarray:
+        """
+        WRITE HERE
+        :param label_list: (list)
+        :return:
+            encoded_label (np.ndarray)
+        """
         try:
             encoded_label = list()
             for label in label_list:
