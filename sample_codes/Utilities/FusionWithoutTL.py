@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 
 
-class NNFactory:
+class FusionFactory:
     """
     WRITE HERE
     Public Methods:

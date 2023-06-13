@@ -1,8 +1,8 @@
 import tensorflow as tf
 import numpy as np
 import os
-from Utilities.configuration import configuration
-
+from configuration import configuration
+import matplotlib.pyplot as plt
 
 class CNNUtilities:
     """
@@ -116,3 +116,15 @@ class CNNUtilities:
             return result_holder
         except Exception as ex:
             print(f"[EXCEPTION] Convert predictions throws exception {ex}")
+
+    def plot_some_images(self, how_many_images: int, list_of_element_to_plot) -> None:
+        if how_many_images % 2 != 0:
+            raise Exception("[EXCEPTION] how many images parameter should be divisible by 2")
+
+        f, ax = plt.subplots(how_many_images // 2, how_many_images // 2)
+        counter = 0
+
+        for row in range(how_many_images // 2):
+            for col in range(how_many_images // 2):
+                ax[row, col].imshow(list_of_element_to_plot[counter])
+                counter += 1

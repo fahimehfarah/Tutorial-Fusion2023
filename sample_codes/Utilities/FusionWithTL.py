@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 
 
-class NNFactoryWithVGG:
+class FusionWithVGG:
     """
     WRITE HERE
     Public Methods:
