@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 
 
-class NNFactoryWithVGG:
+class NNFactory:
     """
     WRITE HERE
     Public Methods:
@@ -50,18 +50,6 @@ class NNFactoryWithVGG:
         # concatenate layers
         merged_branch = tf.keras.layers.Concatenate(axis=-1)([input_rgb, input_nir])
 
-        unique_vgg = tf.keras.applications.VGG16(weights=None,
-                                                 include_top=False,
-                                                 input_shape=(self.shape_stream_rgb[0],self.shape_stream_rgb[1], self.shape_stream_rgb[2] + self.shape_stream_rgb[2] ))
-
-        # change the model name cos you can not use two time
-        unique_vgg._name = "vgg16_unique"
-        # change the name because thwy should be unique
-        for i, l in enumerate(unique_vgg.layers):
-            l._name = f'layer_unique_{i}'
-
-        merged_branch = unique_vgg(merged_branch)
-
         # do the others layer
         for unit in self.list_of_conv_layers:
             merged_branch = tf.keras.layers.Conv2D(unit,
@@ -78,7 +66,7 @@ class NNFactoryWithVGG:
         # deconv layer
         deconv_last_layer = tf.keras.layers.Conv2DTranspose(self.number_of_classes,
                                                             kernel_size=(64, 64),
-                                                            strides=(32, 32),
+                                                            strides=(1, 1),
                                                             padding='same',
                                                             activation='relu',
                                                             kernel_initializer='glorot_normal')(merged_branch)
@@ -100,28 +88,39 @@ class NNFactoryWithVGG:
         """
         # define the model
         input_rgb = tf.keras.Input(self.shape_stream_rgb, name="input_rgb")
-        # get the vgg
-        vgg_model_rgb = tf.keras.applications.VGG16(weights='imagenet', include_top=False)
-
-        # change the model name cos you can not use two time
-        vgg_model_rgb._name = "vgg16_rgb"
-        # change the name because thwy should be unique
-        for i, l in enumerate(vgg_model_rgb.layers):
-            l._name = f'layer_rgb_{i}'
-
-        # connect input to first layer
-        rgb_branch = vgg_model_rgb(input_rgb)
-
         # same for nir
         input_nir = tf.keras.Input(self.shape_stream_nir, name="input_nir")
-        vgg_model_nir = tf.keras.applications.VGG16(weights='imagenet', include_top=False)
 
-        # change the model name cos you can not use two time
-        vgg_model_nir._name = "vgg16_nir"
-        for i, l in enumerate(vgg_model_nir.layers):
-            l._name = f"layer_nir_{i}"
+        for counter, unit in enumerate(self.list_of_conv_layers):
+            if counter == 0:
+                rgb_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(input_rgb)
 
-        nir_branch = vgg_model_nir(input_nir)
+                nir_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(input_nir)
+            else:
+                rgb_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(rgb_branch)
+
+                nir_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(nir_branch)
+
+        # make drop out
+        if self.dropout is not None:
+            rgb_branch = tf.keras.layers.Dropout(self.dropout)(rgb_branch)
+            nir_branch = tf.keras.layers.Dropout(self.dropout)(nir_branch)
 
         # we should concat here
         merged_branch = tf.keras.layers.Concatenate(axis=-1)([rgb_branch, nir_branch])
@@ -162,42 +161,37 @@ class NNFactoryWithVGG:
         """
         # define the model
         input_rgb = tf.keras.Input(self.shape_stream_rgb, name="input_rgb")
-        # get the vgg
-        vgg_mdel_rgb = tf.keras.applications.VGG16(weights='imagenet', include_top=False)
-
-        # change the model name cos you can not use two time
-        vgg_mdel_rgb._name = "vgg16_rgb"
-        # change the name because thwy should be unique
-        for i, l in enumerate(vgg_mdel_rgb.layers):
-            l._name = f'layer_rgb_{i}'
-
-        # connect input to first layer
-        rgb_branch = vgg_mdel_rgb(input_rgb)
 
         # same for nir
         input_nir = tf.keras.Input(self.shape_stream_nir, name="input_nir")
-        vgg_model_nir = tf.keras.applications.VGG16(weights='imagenet', include_top=False)
-
-        # change the model name cos you can not use two time
-        vgg_model_nir._name = "vgg16_nir"
-        for i, l in enumerate(vgg_model_nir.layers):
-            l._name = f"layer_nir_{i}"
-
-        nir_branch = vgg_model_nir(input_nir)
 
         # do the others layer
-        for unit in self.list_of_conv_layers:
-            rgb_branch = tf.keras.layers.Conv2D(unit,
-                                                kernel_size=self.kernel_size_stream_rgb,
-                                                strides=(1, 1),
-                                                padding='same',
-                                                activation='relu')(rgb_branch)
+        for counter, unit in enumerate(self.list_of_conv_layers):
+            if counter == 0:
+                rgb_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(input_rgb)
 
-            nir_branch = tf.keras.layers.Conv2D(unit,
-                                                kernel_size=self.kernel_size_stream_nir,
-                                                strides=(1, 1),
-                                                padding='same',
-                                                activation='relu')(nir_branch)
+                nir_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_nir,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(input_nir)
+            else:
+
+                rgb_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_rgb,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(rgb_branch)
+
+                nir_branch = tf.keras.layers.Conv2D(unit,
+                                                    kernel_size=self.kernel_size_stream_nir,
+                                                    strides=(1, 1),
+                                                    padding='same',
+                                                    activation='relu')(nir_branch)
 
             # make drop out
         if self.dropout is not None:

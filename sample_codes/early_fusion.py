@@ -5,6 +5,7 @@ import tensorflow as tf
 from Utilities.configuration import configuration, segmentation_index
 from Utilities.utilities import CNNUtilities
 from NNFactory.NNFactoryVGG import NNFactoryWithVGG
+from NNFactory.NNFactory import NNFactory
 
 if __name__ == '__main__':
     NOGPU = True
@@ -65,7 +66,7 @@ if __name__ == '__main__':
     validation_rgb, validation_depth, validation_labels = utilities.load_the_image_from_the_dataset_folder(path="../Dataset/valid",
                                                                                                            image_shape=image_shape)
 
-    print(f"[VALID] RGB {validation_rgb.shape} NIR {validation_depth.shape} LABEL {validation_labels.shape}")
+    print(f"[VALIDATION] RGB {validation_rgb.shape} NIR {validation_depth.shape} LABEL {validation_labels.shape}")
 
     # create cnn config
     cnn_configuration = {
