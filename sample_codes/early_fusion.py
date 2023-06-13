@@ -121,5 +121,5 @@ if __name__ == '__main__':
                                                 height_of_predicted_image=h,
                                                 width_of_pred_image=w)
 
-        cv.imwrite(f"Results/pred_{predicted_index}.png", temp)
+        cv.imwrite(f"../Results/pred_{predicted_index}.png", temp)
 

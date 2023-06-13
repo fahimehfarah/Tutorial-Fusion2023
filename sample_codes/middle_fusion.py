@@ -1,6 +1,7 @@
 import os
 import argparse
 import tensorflow as tf
+import  cv2 as cv
 from Utilities.configuration import configuration, segmentation_index
 from Utilities.utilities import CNNUtilities
 from NNFactory.NNFactoryVGG import NNFactoryWithVGG
@@ -112,4 +113,13 @@ if __name__ == '__main__':
 
     # predict
     final_predictions = cnn_handler.make_predictions(x_test=dictionary_of_test)
+
+    # loop into the prediction arrays and rebuilt the image
+    for predicted_index in range(final_predictions.shape[0]):
+        temp = utilities.convert_the_prediction(prediction=final_predictions[predicted_index, :, :],
+                                                number_of_classes=len(segmentation_index),
+                                                height_of_predicted_image=h,
+                                                width_of_pred_image=w)
+
+        cv.imwrite(f"../Results/pred_{predicted_index}.png", temp)
 
