@@ -1,5 +1,6 @@
 Dataset/*
 .idea/
+.vscode/
 **/__pycache__/
 Early_Results
 Middle_Results

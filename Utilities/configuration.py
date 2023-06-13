@@ -1,8 +1,9 @@
 
 configuration = {
     "VERBOSE": False,
-    "image_height": 512,
-    "image_width": 928,
+    "GPU": False,
+    "image_height": 224,
+    "image_width": 224,
     "epochs": 200
 }
 
