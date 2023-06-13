@@ -3,8 +3,22 @@ import tensorflow as tf
 
 
 class NNFactoryWithVGG:
-    def __init__(self, shape_stream_rgb, kernel_size_stream_rgb, shape_stream_nir, kernel_size_stream_nir,
-                 list_of_conv_layers, dropout, number_of_classes):
+    """
+    WRITE HERE
+    Public Methods:
+        def early_fusion(self)
+        def middle_fusion(self)
+        def late_fusion(self)
+        def fit_the_model(self, x_train: dict, y_train: dict, x_validation: dict = None, y_validation: dict = None, epochs: int= 200)
+        def evaluate_the_model(self, x_test: dict, y_test: dict)
+        def make_predictions(self, x_test: dict)
+        def plot_the_model(self, compiled_model: tf.keras.Model, filename: str)
+    Private Methods:
+        def __compile_the_model(self)
+
+    """
+    def __init__(self, shape_stream_rgb: tuple, kernel_size_stream_rgb: tuple, shape_stream_nir: tuple, kernel_size_stream_nir: tuple,
+                 list_of_conv_layers: list, dropout: float or None, number_of_classes: int) -> None:
         """
         Class constructor
         :param shape_stream_rgb:
@@ -25,7 +39,10 @@ class NNFactoryWithVGG:
         self.model = None
         self.model_history = None
 
-    def early_fusion(self):
+    def early_fusion(self) -> None:
+        """
+        Early fusion function
+        """
         # define the model
         input_rgb = tf.keras.Input(self.shape_stream_rgb, name="input_rgb")
         input_nir = tf.keras.Input(self.shape_stream_nir, name="input_nir")
@@ -75,9 +92,10 @@ class NNFactoryWithVGG:
         # compile the model
         self.__compile_the_model()
 
-
-
-    def middle_fusion(self):
+    def middle_fusion(self) -> None:
+        """
+        Middle fusion function
+        """
         # define the model
         input_rgb = tf.keras.Input(self.shape_stream_rgb, name="input_rgb")
         # get the vgg
@@ -134,7 +152,10 @@ class NNFactoryWithVGG:
         # compile the model
         self.__compile_the_model()
 
-    def late_fusion(self):
+    def late_fusion(self) -> None:
+        """
+        The late fusion model
+        """
         # define the model
         input_rgb = tf.keras.Input(self.shape_stream_rgb, name="input_rgb")
         # get the vgg
@@ -249,3 +270,25 @@ class NNFactoryWithVGG:
             raise Exception("[EXCEPTION] The model can not be null")
         prediction = self.model.predict(x_test)
         return prediction
+
+    def plot_the_model(self, compiled_model: tf.keras.Model, filename: str) -> None:
+        """
+        This function plot the model
+        :param compiled_model:  (tf.keras.Model)
+        :param filename: (str)
+        """
+        if compiled_model is None or filename is None or filename is " ":
+            raise Exception("compiled model or filename can not be null or None")
+        # show the model
+        tf.keras.utils.plot_model(
+            compiled_model,
+            to_file=f"{filename}",
+            show_shapes=True,
+            show_dtype=False,
+            show_layer_names=True,
+            rankdir="TB",
+            expand_nested=False,
+            dpi=96,
+            layer_range=None,
+            show_layer_activations=True,
+        )

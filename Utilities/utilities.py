@@ -81,3 +81,38 @@ class CNNUtilities:
             return np.array(encoded_label)
         except Exception as ex:
             print(f"[EXCEPTION] Encode the labels throws exception {ex}")
+
+    def convert_the_prediction(self, prediction: np.ndarray, number_of_classes: int, height_of_predicted_image: int, width_of_pred_image: int) -> np.ndarray:
+        try:
+            temp = prediction.argmax(1)
+            color_map = np.array([255, 255, 255, 0, 255, 0, 51, 102, 102, 0, 60, 0, 255, 120, 0, 170, 170, 170],
+                                 dtype=np.uint8).reshape(number_of_classes, 3)
+            result_holder = np.zeros((temp.shape[0], 3), dtype=np.uint8)
+            class_count = [0, 0, 0, 0, 0, 0]
+
+            for i in range(temp.shape[0]):
+                if temp[i] == 0:
+                    result_holder[i] = color_map[0]
+                class_count[0] += 1
+                if temp[i] == 1:
+                    result_holder[i] = color_map[1]
+                    class_count[1] += 1
+                if temp[i] == 2:
+                    result_holder[i] = color_map[2]
+                class_count[2] += 1
+                if temp[i] == 3:
+                    result_holder[i] = color_map[3]
+                class_count[3] += 1
+                if temp[i] == 4:
+                    result_holder[i] = color_map[4]
+                class_count[4] += 1
+                if temp[i] == 5:
+                    result_holder[i] = color_map[5]
+                class_count[5] += 1
+
+            print(f"[COUNT] The class count is {class_count}")
+
+            result_holder = result_holder.reshape((height_of_predicted_image, width_of_pred_image, 3))
+            return result_holder
+        except Exception as ex:
+            print(f"[EXCEPTION] Convert predictions throws exception {ex}")
