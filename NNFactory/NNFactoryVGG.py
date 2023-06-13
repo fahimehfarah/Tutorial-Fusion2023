@@ -278,17 +278,16 @@ class NNFactoryWithVGG:
         prediction = self.model.predict(x_test)
         return prediction
 
-    def plot_the_model(self, compiled_model: tf.keras.Model, filename: str) -> None:
+    def plot_the_model(self, filename: str) -> None:
         """
         This function plot the model
-        :param compiled_model:  (tf.keras.Model)
         :param filename: (str)
         """
-        if compiled_model is None or filename is None or filename is " ":
+        if self.model is None or filename is None or filename is " ":
             raise Exception("compiled model or filename can not be null or None")
         # show the model
         tf.keras.utils.plot_model(
-            compiled_model,
+            self.model,
             to_file=f"{filename}",
             show_shapes=True,
             show_dtype=False,
