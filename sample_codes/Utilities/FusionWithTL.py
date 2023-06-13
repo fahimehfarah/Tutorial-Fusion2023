@@ -283,7 +283,7 @@ class FusionWithVGG:
         This function plot the model
         :param filename: (str)
         """
-        if self.model is None or filename is None or filename is " ":
+        if self.model is None or filename is None or filename == " ":
             raise Exception("compiled model or filename can not be null or None")
         # show the model
         tf.keras.utils.plot_model(

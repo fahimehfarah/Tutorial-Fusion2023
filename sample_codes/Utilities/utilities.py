@@ -1,7 +1,6 @@
 import tensorflow as tf
 import numpy as np
 import os
-from configuration import configuration
 import matplotlib.pyplot as plt
 
 class CNNUtilities:
@@ -110,21 +109,20 @@ class CNNUtilities:
                     result_holder[i] = color_map[5]
                 class_count[5] += 1
 
-            print(f"[COUNT] The class count is {class_count}")
+            #if self.configuration["verbose"]:
+                #print(f"[COUNT] The class count is {class_count}")
 
             result_holder = result_holder.reshape((height_of_predicted_image, width_of_pred_image, 3))
             return result_holder
         except Exception as ex:
             print(f"[EXCEPTION] Convert predictions throws exception {ex}")
 
-    def plot_some_images(self, how_many_images: int, list_of_element_to_plot) -> None:
-        if how_many_images % 2 != 0:
-            raise Exception("[EXCEPTION] how many images parameter should be divisible by 2")
+    def plot_some_images(self, how_many_rows: int, how_many_cols: int, list_of_element_to_plot) -> None:
 
-        f, ax = plt.subplots(how_many_images // 2, how_many_images // 2)
+        f, ax = plt.subplots(how_many_rows, how_many_cols)
         counter = 0
 
-        for row in range(how_many_images // 2):
-            for col in range(how_many_images // 2):
+        for row in range(how_many_rows):
+            for col in range(how_many_cols):
                 ax[row, col].imshow(list_of_element_to_plot[counter])
                 counter += 1
