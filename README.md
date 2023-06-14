@@ -12,7 +12,7 @@ Sensor fusion technology is widely used in many real-world applications such as 
 the multisensor fusion approaches suffer from two challenges, which are (1) the feature extraction from various types of sensory data and (2) the selection of a suitable fusion level.
 
 In this tutorial, we will introduce the trend of DL-based fusion architectures: early, late and middle fusion. We will discuss how they are employed for different computer vision tasks: classification, detection and segmentation. We will talk about advantages and disadvantages of these architectures. The talk covers methods and principles behind these architectures in two popular case studies:
-autonomous ships and remote sensing. Finally, we will illustrate this taxonomy through relevant examples from the literature and will highlight existing open challenges and research directions that might inspire attendees to embark in the fascinating and promising area of DL-based fusion methods. Attendees to this tutorial will leave with a good sense of how deep learning can be used for multispectral, multiresolution and multisensor data fusion
+autonomous ships and remote sensing. Finally, we will illustrate this taxonomy through relevant examples from the literature and will highlight existing open challenges and research directions that might inspire attendees to embark in the fascinating and promising area of DL-based fusion methods. Attendees to this tutorial will leave with a good sense of how deep learning can be used for multispectral, multiresolution and multisensor data fusion.
 
 ---
 
