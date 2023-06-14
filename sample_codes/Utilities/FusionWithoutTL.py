@@ -57,6 +57,9 @@ class FusionFactory:
                                                    strides=(1, 1),
                                                    padding='same',
                                                    activation='relu')(merged_branch)
+            # add max pool and norm
+            #merged_branch = tf.keras.layers.MaxPooling2D()(merged_branch)
+            #merged_branch = tf.keras.layers.BatchNormalization()(merged_branch)
 
             # make drop out
         if self.dropout is not None:
@@ -65,11 +68,10 @@ class FusionFactory:
 
         # deconv layer
         deconv_last_layer = tf.keras.layers.Conv2DTranspose(self.number_of_classes,
-                                                            kernel_size=(64, 64),
+                                                            kernel_size=self.kernel_size_stream_rgb,
                                                             strides=(1, 1),
                                                             padding='same',
-                                                            activation='relu',
-                                                            kernel_initializer='glorot_normal')(merged_branch)
+                                                            activation='relu')(merged_branch)
 
         # reshape the model
         reshape_layer = tf.keras.layers.Reshape((self.shape_stream_rgb[0] * self.shape_stream_rgb[1], self.number_of_classes))(deconv_last_layer)
@@ -140,7 +142,7 @@ class FusionFactory:
         # deconv layer
         deconv_last_layer = tf.keras.layers.Conv2DTranspose(self.number_of_classes,
                                                             kernel_size=(64, 64),
-                                                            strides=(32, 32),
+                                                            strides=(1, 1),
                                                             padding='same',
                                                             activation='relu',
                                                             kernel_initializer='glorot_normal')(merged_branch)
@@ -204,7 +206,7 @@ class FusionFactory:
         # deconv layer
         deconv_last_layer = tf.keras.layers.Conv2DTranspose(self.number_of_classes,
                                                             kernel_size=(64, 64),
-                                                            strides=(32, 32),
+                                                            strides=(1, 1),
                                                             padding='same',
                                                             activation='relu',
                                                             kernel_initializer='glorot_normal')(merged_branch)
