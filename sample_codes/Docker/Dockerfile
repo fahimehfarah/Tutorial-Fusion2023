@@ -1,27 +1,31 @@
+FROM jupyter/base-notebook
+#ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER "Luca Zelioli"
-FROM ubuntu:20.04
-ENV DEBIAN_FRONTEND noninteractive
+
+# Let's change to root user
+USER root
 
 RUN apt-get update && apt-get install -y \
 	libopencv-dev \
         python3-pip \
-	python3-opencv && \
-    rm -rf /var/lib/apt/lists/* \
+	python3-opencv
+
+
+# let s change to normal user
+USER $NB_UID
 
 # tf and all the others  \
-RUN pip3 install tensorflow
-RUN pip3 install numpy
-RUN pip3 install pandas
-RUN pip3 install sklearn
-RUN pip3 install matplotlib
-RUN pip3 install jupyter
-RUN pip3 install opencv-python
-RUN pip3 install pillow
+RUN conda install -y -c  numpy pandas matplotlib jupyter pillow
+RUN pip install tensorflow
+RUN pip install opencv-python
+RUN pip install scikit-learn
 
 RUN ["mkdir", "notebooks"]
-COPY conf/.jupyter /root/.jupyter
-COPY start_jupyter.sh /
+COPY notebooks/. /home/jovyan/notebooks
+#COPY .jupyter /root/.jupyter
+#COPY start_jupyter.sh /
+
+# export the labs
+ENV JUPYTER_ENABLE_LAB=yes
 
 EXPOSE 8888 6006
-VOLUME /notebooks
-CMD ["/start_jupyter.sh"]
