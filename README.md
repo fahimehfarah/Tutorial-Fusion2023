@@ -47,7 +47,7 @@ Slide download link https://seafile.utu.fi/f/65e6dbe1470940cfba77/?dl=1
 <h2 style="text-align: center;">Tutorial Lecturers</h2>
 
 ---
-***[Fahimeh Farahnakian(https://users.utu.fi/fahfar/ )]*** is currently an adjunct professor (docent)
+***[Fahimeh Farahnakian](https://users.utu.fi/fahfar/)*** is currently an adjunct professor (docent)
 in the Algorithms and Computational Intelligence research Lab, Department
 of Future Technologies, University of Turku, Finland. Her research
 interests include the theory and algorithms of machine learning, computer
