@@ -21,7 +21,7 @@ autonomous ships and remote sensing. Finally, we will illustrate this taxonomy t
 This tutorial is of half-day duration (4 hours). The outline of the tutorial
 include:
 
-• Overview of well-knowell-known DL techniques for three main computer vision tasks + A general introduction about modern sensors such as camera, radar, LiDAR and etc, and their advantage and disadvantage (13:00-13:45)
+• <h3 style="text-align: center;">13:00-13:45 pm , Lecture 1 by Pouya Jafarzadeh:</h3> Overview of well-knowell-known DL techniques for three main computer vision tasks + A general introduction about modern sensors such as camera, radar, LiDAR and etc, and their advantage and disadvantage (13:00-13:45)
 
 • Break (13:45-14:00)
 
@@ -42,7 +42,7 @@ DL-based sensor fusion methods in following applications:
 <h2 style="text-align: center;">Resources</h2>
 All sample of our codes for tutorial are avaiable in this represitory. 
 
-Slice can be downloaded from this link https://seafile.utu.fi/f/65e6dbe1470940cfba77/?dl=1 
+Slide download link https://seafile.utu.fi/f/65e6dbe1470940cfba77/?dl=1 
 
 <h2 style="text-align: center;">Tutorial Lecturers</h2>
 
