@@ -21,7 +21,7 @@ autonomous ships and remote sensing. Finally, we will illustrate this taxonomy t
 This tutorial is of half-day duration (4 hours). The outline of the tutorial
 include:
 
-• <h3 style="text-align: center;">13:00-13:45 pm , Lecture 1 by Pouya Jafarzadeh:</h3> Overview of well-knowell-known DL techniques for three main computer vision tasks + A general introduction about modern sensors such as camera, radar, LiDAR and etc, and their advantage and disadvantage (13:00-13:45)
+ <h4 style="text-align: center;">13:00-13:45 pm , Lecture 1 by Pouya Jafarzadeh:</h4> Overview of well-knowell-known DL techniques for three main computer vision tasks + A general introduction about modern sensors such as camera, radar, LiDAR and etc, and their advantage and disadvantage (13:00-13:45)
 
 • Break (13:45-14:00)
 
