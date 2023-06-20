@@ -40,7 +40,9 @@ DL-based sensor fusion methods in following applications:
 – Describe our sample DL-based fusion codes for these applications
 
 <h2 style="text-align: center;">Resources</h2>
-All slides for the tutorial and sample of our codes are avaiable in this represitory.
+All sample of our codes for tutorial are avaiable in this represitory. 
+
+Slice can be downloaded from this link https://seafile.utu.fi/f/65e6dbe1470940cfba77/?dl=1 
 
 <h2 style="text-align: center;">Tutorial Lecturers</h2>
 
