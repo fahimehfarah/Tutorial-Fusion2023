@@ -31,7 +31,7 @@ middle and late fusion
  <h4 style="text-align: center;">Break (15:15-15:30)</h4>
 
 
-<h4 style="text-align: center;"> Lecture 3 by Luca Zelioli (15:30-16🕥)</h4> we will describe our research outcomes about DL-based sensor fusion methods in following applications:
+<h4 style="text-align: center;"> Lecture 3 by Luca Zelioli (15:30-16:30)</h4> we will describe our research outcomes about DL-based sensor fusion methods in following applications:
 
 – Autonomous vehicles
 
